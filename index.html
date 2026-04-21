@@ -492,21 +492,23 @@ select option{color:var(--tx);background:var(--sf2)}
         <div class="field"><label>나이</label>
           <input type="number" id="age" value="20" min="18" max="65">
         </div>
-        <div class="field"><label>체형</label>
+        <div class="field"><label>전체 체형</label>
           <select id="build">
             <option value="SLIM, SLENDER FIGURE">슬림</option>
-            <option value="ATHLETIC, TONED FIGURE">탄탄한 체형</option>
-            <option value="CURVY, FULL FIGURE">글래머러스</option>
-            <option value="PETITE, SMALL FRAME">소녀체형</option>
-            <option value="MUSCULAR, DEFINED PHYSIQUE">근육형</option>
+            <option value="SLIM TONED, LEAN ATHLETIC FIGURE">슬림-탄탄</option>
+            <option value="ATHLETIC, TONED MUSCULAR FIGURE">애슬레틱</option>
+            <option value="CURVY, HOURGLASS FIGURE">글래머러스 (모래시계)</option>
+            <option value="PLUS SIZE, FULL FIGURE, VOLUMINOUS">플러스 사이즈</option>
+            <option value="PETITE, SMALL FRAME, SHORT STATURE">페티트 (작은 키)</option>
           </select>
         </div>
       </div>
+
       <div class="field-row" style="margin-top:8px">
         <div class="field"><label>매력도 수식어 <span style="font-size:12px;color:var(--txd);font-weight:300">— 선택</span></label>
           <select id="face-attract">
             <option value="">없음</option>
-            <option value="VERY ATTRACTIVE">VERY ATTRACTIVE</option>
+            <option value="VERY ATTRACTIVE" selected>VERY ATTRACTIVE</option>
             <option value="VERY ATTRACTIVE, K-POP IDOL LEVEL BEAUTY">K-POP IDOL LEVEL BEAUTY</option>
             <option value="VERY ATTRACTIVE, HIGH-END MODEL LEVEL BEAUTY">HIGH-END MODEL LEVEL BEAUTY</option>
             <option value="VERY ATTRACTIVE, EDITORIAL MODEL BEAUTY">EDITORIAL MODEL BEAUTY</option>
@@ -521,6 +523,15 @@ select option{color:var(--tx);background:var(--sf2)}
     <!-- 얼굴 디테일 -->
     <div class="section">
       <div class="sec-label">▸ 👁 얼굴 디테일</div>
+      <div style="margin-bottom:10px">
+        <button onclick="randomizeFaceDetail()" id="face-random-btn"
+          style="width:100%;font-family:var(--fm);font-size:12px;padding:8px;border-radius:8px;border:.5px solid rgba(200,169,110,.4);background:rgba(200,169,110,.07);color:var(--ac);cursor:pointer;transition:all .15s ease;display:flex;align-items:center;justify-content:center;gap:8px"
+          onmouseover="this.style.background='rgba(200,169,110,.15)'" onmouseout="this.style.background='rgba(200,169,110,.07)'">
+          <span style="font-size:15px">🎲</span>
+          <span>랜덤 — 이목구비 · 메이크업 · 헤어 · 조명 자동 조합</span>
+          <span style="font-size:12px;color:var(--txd)">(기본 설정 제외)</span>
+        </button>
+      </div>
       <div class="field-row">
         <div class="field"><label>이목구비 타입</label>
           <select id="eyes">
@@ -594,6 +605,19 @@ select option{color:var(--tx);background:var(--sf2)}
           <span class="mchip active" data-intensity="SUBTLE APPLICATION, SHEER COVERAGE, BARELY-THERE FINISH">연하게</span>
           <span class="mchip" data-intensity="MODERATE BUILD, MEDIUM COVERAGE, BALANCED APPLICATION">보통</span>
           <span class="mchip" data-intensity="FULL COVERAGE BUILD, HIGH-PIGMENT APPLICATION, DRAMATIC INTENSITY">진하게</span>
+        </div>
+      </div>
+      <div style="margin-top:8px">
+        <div class="opart-sublabel">볼터치 &amp; 홍조</div>
+        <div class="makeup-row" id="blush-chips">
+          <span class="mchip" data-value="SOFT NATURAL BLUSH, SUBTLE PINK FLUSH ON CHEEKS">내추럴 핑크 볼터치</span>
+          <span class="mchip" data-value="ROSY CHEEKS, WARM PEACHY BLUSH, FLUSHED SKIN">복숭아빛 홍조</span>
+          <span class="mchip" data-value="DEEP CORAL BLUSH, WARM ORANGE-TONED CHEEK COLOR">딥 코랄</span>
+          <span class="mchip" data-value="SUN-KISSED FLUSH, WARM GOLDEN GLOW ON CHEEKBONES">선키스드 글로우</span>
+          <span class="mchip" data-value="COLD ROSY FLUSH, COOL-TONED PINK BLUSH, WINDSWEPT CHEEKS">차가운 핑크 홍조</span>
+          <span class="mchip" data-value="GRADIENT BLUSH, OMBRE FLUSH FADING FROM NOSE OUTWARD">그라데이션 블러셔</span>
+          <span class="mchip" data-value="SHIMMERY HIGHLIGHT ON CHEEKBONES, SUBTLE PEARL GLOW">하이라이터 쉬머</span>
+          <span class="mchip" data-value="EDITORIAL GRAPHIC BLUSH, BOLD GEOMETRIC CHEEK PLACEMENT">그래픽 블러셔</span>
         </div>
       </div>
     </div>
@@ -759,11 +783,110 @@ select option{color:var(--tx);background:var(--sf2)}
       <div class="banner-icon">👗</div>
       <div>
         <div class="banner-title" style="color:var(--ac)">의상 에셋 — Soul Cinema</div>
-        <div class="banner-text">컬러 팔레트부터 시작하고, 파트별 아코디언을 펼쳐 세부 조정하세요. 조명은 <strong>① 얼굴 에셋</strong>에서 설정한 값이 자동 반영됩니다.</div>
+        <div class="banner-text">① 캐릭터 스타일 분석 → ② 컬러 팔레트 → ③ 피팅 모델·볼륨 → ④ 아이템(상의·하의·아우터·신발) → ⑤ 액세서리·무드 순서로 진행하세요.</div>
       </div>
     </div>
 
     <div class="sec-divider"></div>
+
+    <!-- 캐릭터 스타일 분석 -->
+    <div style="background:rgba(142,196,154,.06);border:.5px solid rgba(142,196,154,.3);border-radius:12px;padding:16px 18px;margin-bottom:1.2rem;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--p2),rgba(142,196,154,.15));border-radius:12px 12px 0 0"></div>
+
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+        <span style="font-size:18px">🔍</span>
+        <div>
+          <div style="font-family:var(--fb);font-size:13px;color:var(--p2);font-weight:500">캐릭터 스타일 분석</div>
+          <div style="font-family:var(--fm);font-size:12px;color:var(--txd);margin-top:2px">캐릭터 이미지 업로드 → 어울리는 컬러·스타일 자동 추천</div>
+        </div>
+      </div>
+
+      <!-- 이미지 업로드 존 -->
+      <div id="outfit-char-zone"
+           onclick="document.getElementById('outfit-char-file').click()"
+           ondragover="event.preventDefault()"
+           ondrop="outfitCharDrop(event)"
+           style="background:var(--sf2);border:.5px dashed rgba(142,196,154,.4);border-radius:9px;padding:12px 14px;cursor:pointer;transition:all .15s ease;display:flex;align-items:center;gap:12px;margin-bottom:10px"
+           onmouseover="this.style.borderColor='var(--p2)'"
+           onmouseout="if(!window._outfitCharImg)this.style.borderColor='rgba(142,196,154,.4)'">
+        <input type="file" id="outfit-char-file" accept="image/*" style="display:none" onchange="outfitCharLoad(this)">
+        <div style="width:52px;height:52px;border-radius:8px;background:var(--sf);border:.5px solid var(--bd);flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden">
+          <span id="outfit-char-placeholder-icon" style="font-size:22px">👤</span>
+          <img id="outfit-char-preview" style="display:none;width:100%;height:100%;object-fit:cover;border-radius:7px">
+        </div>
+        <div>
+          <div style="font-family:var(--fm);font-size:12px;color:var(--txm)">클릭 · 드래그 · Ctrl+V 붙여넣기</div>
+          <div style="font-family:var(--fm);font-size:12px;color:var(--txd);margin-top:2px">① 얼굴 에셋에서 생성한 캐릭터 이미지를 업로드하세요</div>
+        </div>
+      </div>
+
+      <!-- 분석 버튼 -->
+      <button id="outfit-analyze-btn" onclick="runOutfitStyleAnalysis()"
+              style="width:100%;font-family:var(--fb);font-size:13px;padding:9px;border-radius:8px;border:.5px solid rgba(142,196,154,.5);background:rgba(142,196,154,.1);color:var(--p2);cursor:pointer;transition:all .15s ease"
+              onmouseover="this.style.background='rgba(142,196,154,.18)'"
+              onmouseout="this.style.background='rgba(142,196,154,.1)'">
+        🔍 스타일 분석 → 추천 받기
+      </button>
+      <div id="outfit-analyze-loading" style="display:none;text-align:center;padding:8px;font-family:var(--fm);font-size:12px;color:var(--txd)">🔍 분석 중...</div>
+      <div id="outfit-analyze-error" style="display:none;margin-top:6px;padding:7px 10px;background:rgba(229,115,115,.08);border:.5px solid rgba(229,115,115,.25);border-radius:6px;font-family:var(--fm);font-size:12px;color:#e57373"></div>
+      <div id="outfit-analyze-result" style="display:none;margin-top:12px"></div>
+    </div>
+
+    <!-- 피팅 모델 & 볼륨 -->
+    <div class="section">
+      <div class="sec-label">▸ 👤 피팅 모델 & 볼륨</div>
+
+      <!-- 실루엣 라인 -->
+      <div class="opart-sublabel">실루엣 라인</div>
+      <div class="opart-row" id="body-silhouette-chips" style="margin-bottom:10px">
+        <span class="odetail" data-value="A-LINE SILHOUETTE, NARROW SHOULDERS FLARING OUTWARD TO WIDE HEM">A라인 — 하체 플레어</span>
+        <span class="odetail" data-value="H-LINE SILHOUETTE, STRAIGHT BOXY COLUMN, MINIMAL WAIST DEFINITION">H라인 — 스트레이트</span>
+        <span class="odetail active" data-value="X-LINE SILHOUETTE, DEFINED WAIST, BALANCED SHOULDER AND HIP WIDTH">X라인 — 모래시계</span>
+        <span class="odetail" data-value="Y-LINE SILHOUETTE, BROAD STRUCTURED SHOULDERS TAPERING TO NARROW HEM">Y라인 — 어깨 강조</span>
+        <span class="odetail" data-value="O-LINE SILHOUETTE, ROUNDED COCOON SHAPE, OVERSIZED VOLUME">O라인 — 오버사이즈 코쿤</span>
+      </div>
+
+      <!-- 키 / 다리 비율 -->
+      <div class="opart-sublabel">키 / 다리 비율</div>
+      <div class="opart-row" id="body-height-chips" style="margin-bottom:10px">
+        <span class="odetail" data-value="PETITE HEIGHT, SHORT STATURE, PROPORTIONALLY COMPACT FRAME">페티트 — 작은 키</span>
+        <span class="odetail active" data-value="AVERAGE HEIGHT, WELL-PROPORTIONED FIGURE">보통 키</span>
+        <span class="odetail" data-value="TALL STATURE, LONG LEGS, MODEL-PROPORTIONED FRAME">롱레그 — 모델 체형</span>
+      </div>
+
+      <!-- 상체 볼륨 -->
+      <div class="opart-sublabel">상체 볼륨</div>
+      <div class="opart-row" id="body-upper-chips" style="margin-bottom:10px">
+        <span class="odetail active" data-value="NARROW DELICATE SHOULDERS, SLOPED SHOULDER LINE">좁은 어깨</span>
+        <span class="odetail" data-value="BROAD SQUARE SHOULDERS, STRONG SHOULDER LINE">넓은 어깨</span>
+        <span class="odetail" data-value="SMALL BUST, FLAT CHEST, MINIMAL CHEST VOLUME">가슴 — 슬림</span>
+        <span class="odetail active" data-value="FULL GENEROUS BUST, PROMINENT CHEST VOLUME">가슴 — 볼륨</span>
+        <span class="odetail" data-value="SLIM UPPER ARMS, LEAN SLEEK ARM LINE">팔 — 슬림</span>
+        <span class="odetail" data-value="TONED ARMS, DEFINED MUSCLE VISIBLE THROUGH FABRIC">팔 — 탄탄</span>
+      </div>
+
+      <!-- 하체 볼륨 -->
+      <div class="opart-sublabel">하체 볼륨</div>
+      <div class="opart-row" id="body-lower-chips" style="margin-bottom:10px">
+        <span class="odetail active" data-value="DEFINED NARROW WAIST, CINCHED WAISTLINE, STRONG HOURGLASS CURVE">허리 — 잘록</span>
+        <span class="odetail" data-value="STRAIGHT WAIST, MINIMAL WAIST INDENTATION, BOXY MID-SECTION">허리 — 일자</span>
+        <span class="odetail active" data-value="FULL ROUNDED HIPS, PRONOUNCED HIP CURVES, WIDE HIP-TO-WAIST RATIO">힙 — 볼륨</span>
+        <span class="odetail" data-value="SLIM NARROW HIPS, LEAN HIP LINE, MINIMAL HIP FLARE">힙 — 슬림</span>
+        <span class="odetail" data-value="SLIM THIGHS, LEAN LEG LINE, THIGH GAP VISIBLE">허벅지 — 슬림</span>
+        <span class="odetail" data-value="FULL THIGHS, THICK LEG VOLUME, POWERFUL LOWER BODY">허벅지 — 볼륨</span>
+      </div>
+    </div>
+
+    <!-- 완전 랜덤 -->
+    <div style="margin-bottom:4px">
+      <button onclick="randomizeOutfit()" id="outfit-random-btn"
+        style="width:100%;font-family:var(--fm);font-size:12px;padding:8px;border-radius:8px;border:.5px solid rgba(200,169,110,.4);background:rgba(200,169,110,.07);color:var(--ac);cursor:pointer;transition:all .15s ease;display:flex;align-items:center;justify-content:center;gap:8px"
+        onmouseover="this.style.background='rgba(200,169,110,.15)'" onmouseout="this.style.background='rgba(200,169,110,.07)'">
+        <span style="font-size:15px">🎲</span>
+        <span>완전 랜덤 — 팔레트 · 아이템 · 무드 자동 조합</span>
+        <span style="font-size:12px;color:var(--txd)">(실루엣·볼륨 제외)</span>
+      </button>
+    </div>
 
     <!-- 컬러 팔레트 -->
     <div class="section">
@@ -827,6 +950,7 @@ select option{color:var(--tx);background:var(--sf2)}
         <span class="odetail" data-value="LATEX, HIGH GLOSS">라텍스</span>
         <span class="odetail" data-value="GENUINE LEATHER">레더</span>
         <span class="odetail" data-value="SHEER MESH">시스루 메시</span>
+        <span class="odetail" data-value="COTTON">코튼</span>
         <span class="odetail" data-value="RIBBED KNIT">립 니트</span>
         <span class="odetail" data-value="SATIN">새틴</span>
         <span class="odetail" data-value="TECHNICAL NYLON">테크 나일론</span>
@@ -861,6 +985,7 @@ select option{color:var(--tx);background:var(--sf2)}
       <div class="opart-row" id="top-detail-chips">
         <span class="odetail" data-value="CUT-OUT DETAILS">컷아웃</span>
         <span class="odetail" data-value="BACKLESS">백리스</span>
+        <span class="odetail" data-value="SHORT SLEEVES">반팔</span>
         <span class="odetail" data-value="LONG SLEEVES">긴 소매</span>
         <span class="odetail" data-value="SLEEVELESS">민소매</span>
         <span class="odetail" data-value="ZIP CLOSURE FRONT">프론트 집</span>
@@ -874,11 +999,87 @@ select option{color:var(--tx);background:var(--sf2)}
         <span class="odetail" data-value="SHEER OVERLAY, TRANSPARENT LAYER">시스루 오버레이</span>
       </div>
       <div class="field" style="margin-top:8px">
-        <textarea id="outfit-top" placeholder="추가 묘사 (선택)" style="min-height:38px"></textarea>
+        <textarea id="outfit-top" placeholder="추가 묘사 — 한글로 입력하면 자동 번역" style="min-height:38px" oninput="scheduleKoTranslate(this)"></textarea>
       </div>
     </div>
 
     <!-- ── 아코디언: 아우터 ── -->
+    <div class="oahead" data-acc="acc-bottom">
+      <div class="oahead-left">
+        <span class="oahead-title">하의</span>
+        <span class="oahead-badge" id="badge-acc-bottom">0</span>
+      </div>
+      <span class="oahead-arrow">▶</span>
+    </div>
+    <div class="oabody" id="acc-bottom">
+      <div class="opart-sublabel">아이템 타입</div>
+      <div class="opart-row" id="bottom-type-chips">
+        <span class="otype" data-value="CARGO PANTS">카고 팬츠</span>
+        <span class="otype" data-value="SHORTS">쇼츠</span>
+        <span class="otype" data-value="MINI SKIRT">미니스커트</span>
+        <span class="otype" data-value="MIDI SKIRT">미디스커트</span>
+        <span class="otype" data-value="WIDE-LEG PANTS">와이드 팬츠</span>
+        <span class="otype" data-value="SKINNY PANTS">스키니 팬츠</span>
+        <span class="otype" data-value="LEGGINGS">레깅스</span>
+        <span class="otype" data-value="FLARE PANTS">플레어 팬츠</span>
+        <span class="otype" data-value="JOGGER PANTS, ELASTICATED ANKLE">조거 팬츠</span>
+        <span class="otype" data-value="PARACHUTE PANTS, RIPSTOP NYLON">파라슈트 팬츠</span>
+      </div>
+      <div class="opart-sublabel">소재</div>
+      <div class="opart-row" id="bottom-material-chips">
+        <span class="odetail" data-value="COTTON">코튼</span>
+        <span class="odetail" data-value="DENIM">데님</span>
+        <span class="odetail" data-value="LEATHER">레더</span>
+        <span class="odetail" data-value="FISHNET">피시넷</span>
+        <span class="odetail" data-value="SATIN">새틴</span>
+        <span class="odetail" data-value="TECHNICAL NYLON">테크 나일론</span>
+        <span class="odetail" data-value="LATEX">라텍스</span>
+        <span class="odetail" data-value="VELVET">벨벳</span>
+      </div>
+      <div class="opart-sublabel">핏 &amp; 실루엣</div>
+      <div class="opart-row" id="bottom-fit-chips">
+        <span class="odetail" data-value="FITTED, TIGHT, BODY-CONTOURING">피티드 / 타이트</span>
+        <span class="odetail" data-value="SLIM FITTED, STREAMLINED">슬림 피티드</span>
+        <span class="odetail" data-value="STRAIGHT LEG CUT">스트레이트</span>
+        <span class="odetail" data-value="BAGGY, OVERSIZED FIT">배기</span>
+        <span class="odetail" data-value="HIGH-WAISTED">하이웨이스트</span>
+        <span class="odetail" data-value="LOW-RISE">로우라이즈</span>
+        <span class="odetail" data-value="FLARED HEM, WIDE AT BOTTOM">플레어</span>
+        <span class="odetail" data-value="TAPERED, NARROW AT ANKLE">테이퍼드</span>
+        <span class="odetail" data-value="BOOTCUT, SLIGHT FLARE BELOW KNEE">부츠컷</span>
+        <span class="odetail" data-value="WIDE LEG, PALAZZO">와이드 레그</span>
+      </div>
+      <div class="opart-sublabel">디테일 &amp; 밑단</div>
+      <div class="opart-sublabel">바지 길이</div>
+      <div class="opart-row" id="bottom-length-chips" style="margin-bottom:8px">
+        <span class="odetail" data-value="FULL LENGTH, ANKLE-LENGTH PANTS">긴 바지 (풀렝스)</span>
+        <span class="odetail" data-value="CROPPED PANTS, 7/8 LENGTH">크롭 바지 (7부)</span>
+        <span class="odetail" data-value="KNEE-LENGTH SHORTS">반바지 (무릎)</span>
+        <span class="odetail" data-value="MINI SHORTS, VERY SHORT">숏 반바지</span>
+        <span class="odetail" data-value="MIDI LENGTH SKIRT OR DRESS">미디 (스커트/드레스)</span>
+        <span class="odetail" data-value="MINI SKIRT, VERY SHORT HEMLINE">미니 (스커트)</span>
+      </div>
+      <div class="opart-sublabel">디테일</div>
+      <div class="opart-row" id="bottom-detail-chips">
+        <span class="odetail" data-value="MULTIPLE LARGE POCKETS">멀티 포켓</span>
+        <span class="odetail" data-value="WIDE BUCKLE BELT AT WAIST">버클 벨트</span>
+        <span class="odetail" data-value="KNEE PAD PANELS">니 패드 패널</span>
+        <span class="odetail" data-value="SIDE STRIPE DETAIL">사이드 스트라이프</span>
+        <span class="odetail" data-value="DISTRESSED, RAW EDGE">디스트레스드</span>
+        <span class="odetail" data-value="PANELED CONSTRUCTION, MIXED FABRIC">패널 구성</span>
+      </div>
+      <div class="opart-row" id="bottom-hem-chips" style="margin-top:4px">
+        <span class="odetail" data-value="ZIPPERED HEM CUFFS">지퍼 밑단</span>
+        <span class="odetail" data-value="ELASTICATED CUFFED HEM, BANDED">밴딩 커프</span>
+        <span class="odetail" data-value="ASYMMETRIC HEMLINE, UNEVEN LENGTH">비대칭 밑단</span>
+        <span class="odetail" data-value="TUCKED INTO BOOTS">부츠인</span>
+      </div>
+      <div class="field" style="margin-top:8px">
+        <textarea id="outfit-bottom" placeholder="추가 묘사 — 한글로 입력하면 자동 번역" style="min-height:38px" oninput="scheduleKoTranslate(this)"></textarea>
+      </div>
+    </div>
+
+    <!-- ── 아코디언: 신발 ── -->
     <div class="oahead" data-acc="acc-outer">
       <div class="oahead-left">
         <span class="oahead-title">아우터 / 레이어</span>
@@ -905,6 +1106,7 @@ select option{color:var(--tx);background:var(--sf2)}
       <div class="opart-row" id="outer-detail-chips" style="margin-top:4px">
         <span class="odetail" data-value="GENUINE LEATHER">레더</span>
         <span class="odetail" data-value="FAUX LEATHER, GLOSSY">페이크 레더</span>
+        <span class="odetail" data-value="COTTON">코튼</span>
         <span class="odetail" data-value="DENIM">데님</span>
         <span class="odetail" data-value="TECHNICAL NYLON">테크 나일론</span>
         <span class="odetail" data-value="HEAVY WOOL">울</span>
@@ -920,76 +1122,11 @@ select option{color:var(--tx);background:var(--sf2)}
         <span class="odetail" data-value="ONE ARM IN, ONE ARM OUT">한쪽만 착용</span>
       </div>
       <div class="field" style="margin-top:8px">
-        <textarea id="outfit-outer" placeholder="추가 묘사 (선택)" style="min-height:38px"></textarea>
+        <textarea id="outfit-outer" placeholder="추가 묘사 — 한글로 입력하면 자동 번역" style="min-height:38px" oninput="scheduleKoTranslate(this)"></textarea>
       </div>
     </div>
 
     <!-- ── 아코디언: 하의 ── -->
-    <div class="oahead" data-acc="acc-bottom">
-      <div class="oahead-left">
-        <span class="oahead-title">하의</span>
-        <span class="oahead-badge" id="badge-acc-bottom">0</span>
-      </div>
-      <span class="oahead-arrow">▶</span>
-    </div>
-    <div class="oabody" id="acc-bottom">
-      <div class="opart-sublabel">아이템 타입</div>
-      <div class="opart-row" id="bottom-type-chips">
-        <span class="otype" data-value="CARGO PANTS">카고 팬츠</span>
-        <span class="otype" data-value="SHORTS">쇼츠</span>
-        <span class="otype" data-value="MINI SKIRT">미니스커트</span>
-        <span class="otype" data-value="MIDI SKIRT">미디스커트</span>
-        <span class="otype" data-value="WIDE-LEG PANTS">와이드 팬츠</span>
-        <span class="otype" data-value="SKINNY PANTS">스키니 팬츠</span>
-        <span class="otype" data-value="LEGGINGS">레깅스</span>
-        <span class="otype" data-value="FLARE PANTS">플레어 팬츠</span>
-        <span class="otype" data-value="JOGGER PANTS, ELASTICATED ANKLE">조거 팬츠</span>
-        <span class="otype" data-value="PARACHUTE PANTS, RIPSTOP NYLON">파라슈트 팬츠</span>
-      </div>
-      <div class="opart-sublabel">소재</div>
-      <div class="opart-row" id="bottom-material-chips">
-        <span class="odetail" data-value="DENIM">데님</span>
-        <span class="odetail" data-value="LEATHER">레더</span>
-        <span class="odetail" data-value="FISHNET">피시넷</span>
-        <span class="odetail" data-value="SATIN">새틴</span>
-        <span class="odetail" data-value="TECHNICAL NYLON">테크 나일론</span>
-        <span class="odetail" data-value="LATEX">라텍스</span>
-        <span class="odetail" data-value="VELVET">벨벳</span>
-      </div>
-      <div class="opart-sublabel">핏 &amp; 실루엣</div>
-      <div class="opart-row" id="bottom-fit-chips">
-        <span class="odetail" data-value="FITTED, TIGHT, BODY-CONTOURING">피티드 / 타이트</span>
-        <span class="odetail" data-value="SLIM FITTED, STREAMLINED">슬림 피티드</span>
-        <span class="odetail" data-value="STRAIGHT LEG CUT">스트레이트</span>
-        <span class="odetail" data-value="BAGGY, OVERSIZED FIT">배기</span>
-        <span class="odetail" data-value="HIGH-WAISTED">하이웨이스트</span>
-        <span class="odetail" data-value="LOW-RISE">로우라이즈</span>
-        <span class="odetail" data-value="FLARED HEM, WIDE AT BOTTOM">플레어</span>
-        <span class="odetail" data-value="TAPERED, NARROW AT ANKLE">테이퍼드</span>
-        <span class="odetail" data-value="BOOTCUT, SLIGHT FLARE BELOW KNEE">부츠컷</span>
-        <span class="odetail" data-value="WIDE LEG, PALAZZO">와이드 레그</span>
-      </div>
-      <div class="opart-sublabel">디테일 &amp; 밑단</div>
-      <div class="opart-row" id="bottom-detail-chips">
-        <span class="odetail" data-value="MULTIPLE LARGE POCKETS">멀티 포켓</span>
-        <span class="odetail" data-value="WIDE BUCKLE BELT AT WAIST">버클 벨트</span>
-        <span class="odetail" data-value="KNEE PAD PANELS">니 패드 패널</span>
-        <span class="odetail" data-value="SIDE STRIPE DETAIL">사이드 스트라이프</span>
-        <span class="odetail" data-value="DISTRESSED, RAW EDGE">디스트레스드</span>
-        <span class="odetail" data-value="PANELED CONSTRUCTION, MIXED FABRIC">패널 구성</span>
-      </div>
-      <div class="opart-row" id="bottom-hem-chips" style="margin-top:4px">
-        <span class="odetail" data-value="ZIPPERED HEM CUFFS">지퍼 밑단</span>
-        <span class="odetail" data-value="ELASTICATED CUFFED HEM, BANDED">밴딩 커프</span>
-        <span class="odetail" data-value="ASYMMETRIC HEMLINE, UNEVEN LENGTH">비대칭 밑단</span>
-        <span class="odetail" data-value="TUCKED INTO BOOTS">부츠인</span>
-      </div>
-      <div class="field" style="margin-top:8px">
-        <textarea id="outfit-bottom" placeholder="추가 묘사 (선택)" style="min-height:38px"></textarea>
-      </div>
-    </div>
-
-    <!-- ── 아코디언: 신발 ── -->
     <div class="oahead" data-acc="acc-shoe">
       <div class="oahead-left">
         <span class="oahead-title">신발</span>
@@ -1004,9 +1141,12 @@ select option{color:var(--tx);background:var(--sf2)}
         <span class="otype" data-value="PLATFORM BOOTS, CHUNKY HEEL">플랫폼 부츠</span>
         <span class="otype" data-value="THIGH-HIGH BOOTS">하이씨 부츠</span>
         <span class="otype" data-value="ANKLE BOOTS">앵클 부츠</span>
+        <span class="otype" data-value="LOW-TOP SNEAKERS, CLEAN WHITE SOLE">운동화 (로우탑)</span>
         <span class="otype" data-value="CHUNKY SNEAKERS">청키 스니커즈</span>
         <span class="otype" data-value="STRAPPY HIGH HEELS">스트래피 힐</span>
         <span class="otype" data-value="BALLET FLATS">발레 플랫</span>
+        <span class="otype" data-value="FLAT LOAFERS, SLIP-ON">단화 (로퍼)</span>
+        <span class="otype" data-value="POINTED TOE FLATS, CLASSIC">단화 (포인티드)</span>
         <span class="otype" data-value="TABI SPLIT-TOE BOOTS">타비 부츠</span>
         <span class="otype" data-value="LED SOLE SNEAKERS, LIGHT-UP">LED 솔 스니커즈</span>
         <span class="otype" data-value="MECHANICAL ARMOR BOOTS, FUTURISTIC">메카니컬 아머 부츠</span>
@@ -1020,7 +1160,7 @@ select option{color:var(--tx);background:var(--sf2)}
         <span class="odetail" data-value="THIGH-HIGH STOCKINGS">허벅지 스타킹</span>
       </div>
       <div class="field" style="margin-top:8px">
-        <textarea id="outfit-shoes" placeholder="추가 묘사 (선택)" style="min-height:38px"></textarea>
+        <textarea id="outfit-shoes" placeholder="추가 묘사 — 한글로 입력하면 자동 번역" style="min-height:38px" oninput="scheduleKoTranslate(this)"></textarea>
       </div>
     </div>
 
@@ -1144,7 +1284,7 @@ select option{color:var(--tx);background:var(--sf2)}
       <div class="field-row">
         <div class="field"><label>카메라 앵글</label>
           <select id="outfit-angle">
-            <option value="EYE-LEVEL AXIS, STRAIGHT-ON, SYMMETRICAL FRAMING">아이레벨 — 중립 정면</option>
+            <option value="EYE-LEVEL AXIS">아이레벨 — 중립 정면</option>
             <option value="SLIGHT LOW ANGLE, UPWARD TILT, EMPOWERING DYNAMIC PERSPECTIVE">약간 로우 — 입체감</option>
             <option value="EXTREME LOW ANGLE, WORM'S EYE VIEW, HEROIC DOMINANT FRAMING">익스트림 로우 — 영웅적</option>
             <option value="HIGH ANGLE, DOWNWARD TILT, FULL COSTUME OVERVIEW">하이 앵글 — 의상 전체 조망</option>
@@ -2485,6 +2625,14 @@ document.querySelectorAll('#face-lighting-chips .mchip').forEach(t=>{
     if(!isA){t.classList.add('active');st.faceLighting=t.dataset.value||'';}
     else st.faceLighting='';generate();});});
 // Makeup chips (single select)
+
+// ── 볼터치·홍조 칩 (복수 선택) ────────────────────────────────
+document.querySelectorAll('#blush-chips .mchip').forEach(t=>{
+  t.addEventListener('click',()=>{
+    t.classList.toggle('active');
+    generate();
+  });
+});
 document.querySelectorAll('#makeup-tags .mchip').forEach(t=>{
   t.addEventListener('click',()=>{
     document.querySelectorAll('#makeup-tags .mchip').forEach(x=>x.classList.remove('active'));
@@ -3056,6 +3204,40 @@ function refreshShotDropdowns(){
   generate();
 }
 
+
+// ── 의상 텍스트 한글 → 영문 자동 번역 ─────────────────────────
+const _koTimers={};
+function scheduleKoTranslate(el){
+  generate();
+  const id=el.id;
+  clearTimeout(_koTimers[id]);
+  if(!/[\uAC00-\uD7A3]/.test(el.value)) return;
+  _koTimers[id]=setTimeout(()=>koTranslate(el), 1200);
+}
+
+async function koTranslate(el){
+  const text=el.value.trim();
+  if(!text||!/[\uAC00-\uD7A3]/.test(text)) return;
+  el.style.opacity='.5';
+  el.disabled=true;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:200,
+        system:'Translate Korean fashion/outfit descriptions to concise English prompt keywords for AI image generation. Output ONLY the English translation, no explanation, no quotes. Use comma-separated descriptive terms.',
+        messages:[{role:'user',content:text}]
+      })
+    });
+    const data=await res.json();
+    if(data.error) throw new Error(data.error.message);
+    const translated=data.content.filter(c=>c.type==='text').map(c=>c.text).join('').trim();
+    if(translated){el.value=translated;generate();}
+  }catch(e){console.warn('번역 실패:',e.message);}
+  finally{el.style.opacity='1';el.disabled=false;}
+}
 // ── 에셋 등록 카드 생성 헬퍼 ────────────────────────────────────
 function _makeRegCard(listId, inputClass, placeholder, accentColor, rowId, icon='📎'){
   const card=document.createElement('div');
@@ -3085,14 +3267,14 @@ function _makeRegCard(listId, inputClass, placeholder, accentColor, rowId, icon=
 function regLoadFile(input, uid){
   const file=input.files[0]; if(!file||!file.type.startsWith('image/')) return;
   const reader=new FileReader();
-  reader.onload=e=>regSetThumb(uid, e.target.result, file.type, e.target.result.split(',')[1]);
+  reader.onload=e=>{const du=e.target.result;regSetThumb(uid,du,typeFromDataUrl(du),du.split(',')[1]);};
   reader.readAsDataURL(file);
 }
 
 function regLoadFileFromDrop(file, uid){
   if(!file||!file.type.startsWith('image/')) return;
   const reader=new FileReader();
-  reader.onload=e=>regSetThumb(uid, e.target.result, file.type, e.target.result.split(',')[1]);
+  reader.onload=e=>{const du=e.target.result;regSetThumb(uid,du,typeFromDataUrl(du),du.split(',')[1]);};
   reader.readAsDataURL(file);
 }
 
@@ -3118,7 +3300,7 @@ function regSetThumb(uid, src, type, b64){
   img.src=src;
   // 데이터 저장
   if(!window._regImgData) window._regImgData={};
-  window._regImgData[uid]={b64, type};
+  window._regImgData[uid]={b64, type:normalizeImageType(type||'image/png')};
   thumb.style.borderColor='var(--p3b)';
   updateAIDPreviewBar();
 }
@@ -3237,6 +3419,303 @@ function removeCharField(n){
   });
 });
 
+
+
+
+// ── 랜덤 의상 & 테마 뽑기 ──────────────────────────────────────
+
+
+let _selectedTheme = null;
+
+// 테마 그리드 렌더링
+
+
+
+
+
+
+// 완전 랜덤 의상 (실루엣·볼륨 칩 제외)
+function randomizeOutfit(){
+  const pick=arr=>arr.length?arr[Math.floor(Math.random()*arr.length)]:null;
+  const pickMulti=(arr,n)=>{const s=new Set();while(s.size<Math.min(n,arr.length))s.add(pick(arr));return[...s];};
+  const vals=id=>Array.from(document.querySelectorAll('#'+id+' [data-value]')).map(c=>c.dataset.value).filter(Boolean);
+
+  const data={
+    palette:       pick(vals('outfit-palette')),
+    topType:       pick(vals('top-type-chips')),
+    topMaterials:  pickMulti(vals('top-material-chips'),1),
+    topFit:        pickMulti(vals('top-fit-chips'),1),
+    topDetails:    Math.random()>.6 ? pickMulti(vals('top-detail-chips'),1) : [],
+    outerType:     Math.random()>.5 ? pick(vals('outer-type-chips')) : '',
+    bottomType:    pick(vals('bottom-type-chips')),
+    bottomMaterials: pickMulti(vals('bottom-material-chips'),1),
+    bottomFit:     pickMulti(vals('bottom-fit-chips'),1),
+    shoeType:      pick(vals('shoe-type-chips')),
+    styleMoodChips: pickMulti(vals('outfit-mood-chips'),1),
+    outfitAccChips: pickMulti(vals('outfit-acc-tags'), Math.random()>.5?2:1),
+    faceAccChips:   pickMulti(vals('face-acc-chips').concat(vals('emissive-chips')), 1),
+    outfitHardware: pickMulti(vals('hardware-chips').concat(vals('graphic-chips')), Math.random()>.5?2:1),
+  };
+  // 실루엣·볼륨 칩은 건드리지 않음
+  applyOutfitPreset('_custom', data);
+
+  const btn=document.getElementById('outfit-random-btn');
+  if(btn){
+    btn.querySelector('span:nth-child(2)').textContent='✓ 랜덤 적용됨!';
+    setTimeout(()=>{btn.querySelector('span:nth-child(2)').textContent='완전 랜덤 — 팔레트 · 아이템 · 무드 자동 조합';},1600);
+  }
+}
+
+// ── 얼굴 디테일 랜덤 (기본 설정 제외) ───────────────────────────
+function randomizeFaceDetail(){
+  const pick=arr=>{const a=arr.filter(Boolean);return a[Math.floor(Math.random()*a.length)];};
+  const pickMulti=(arr,n)=>{const s=new Set();while(s.size<Math.min(n,arr.length))s.add(pick(arr));return[...s];};
+  const selVals=id=>Array.from(document.querySelectorAll('#'+id+' option')).map(o=>o.value).filter(Boolean);
+  const chipVals=id=>Array.from(document.querySelectorAll('#'+id+' [data-value]')).map(c=>c.dataset.value).filter(Boolean);
+
+  // 이목구비
+  const eyesSel=document.getElementById('eyes');
+  const skinSel=document.getElementById('skin');
+  if(eyesSel) eyesSel.value=pick(selVals('eyes'));
+  if(skinSel) skinSel.value=pick(selVals('skin'));
+
+  // 헤어
+  const hcSel=document.getElementById('hair-color');
+  const hsSel=document.getElementById('hair-style');
+  if(hcSel) hcSel.value=pick(selVals('hair-color'));
+  if(hsSel) hsSel.value=pick(selVals('hair-style'));
+
+  // 표정 + 포즈
+  const exprSel=document.getElementById('expression');
+  const poseSel=document.getElementById('pose-action');
+  if(exprSel) exprSel.value=pick(selVals('expression'));
+  if(poseSel) poseSel.value=Math.random()>.3?pick(selVals('pose-action')):'';
+
+  // 메이크업 (단일 선택)
+  const makeupChips=Array.from(document.querySelectorAll('#makeup-tags .mchip'));
+  makeupChips.forEach(c=>c.classList.remove('active'));
+  const picked=pick(makeupChips);
+  if(picked){
+    picked.classList.add('active');
+    st.makeup=picked.dataset.value||'';
+  }
+
+  // 메이크업 강도
+  const intensityChips=Array.from(document.querySelectorAll('#makeup-intensity-chips .mchip'));
+  intensityChips.forEach(c=>c.classList.remove('active'));
+  const pickedInt=pick(intensityChips);
+  if(pickedInt){pickedInt.classList.add('active');st.makeupIntensity=pickedInt.dataset.intensity||'';}
+
+  // 조명 (단일 선택)
+  const lightChips=Array.from(document.querySelectorAll('#face-lighting-chips .mchip'));
+  lightChips.forEach(c=>c.classList.remove('active'));
+  const pickedLight=pick(lightChips);
+  if(pickedLight){pickedLight.classList.add('active');st.faceLighting=pickedLight.dataset.value||'';}
+
+  // 시그니처 앵커 (0~2개)
+  const anchorChips=Array.from(document.querySelectorAll('#anchor-tags .achip'));
+  anchorChips.forEach(c=>c.classList.remove('active'));
+  if(Math.random()>.4){
+    const n=Math.random()>.6?2:1;
+    pickMulti(anchorChips,n).forEach(c=>{c.classList.add('active');});
+    st.anchors=Array.from(document.querySelectorAll('#anchor-tags .achip.active')).map(x=>x.dataset.value);
+  } else { st.anchors=[]; }
+
+  // 볼터치·홍조 (50% 확률로 1개)
+  const blushChips=Array.from(document.querySelectorAll('#blush-chips .mchip'));
+  blushChips.forEach(c=>c.classList.remove('active'));
+  if(Math.random()>.5){ const pb=pick(blushChips); if(pb) pb.classList.add('active'); }
+
+  // 카메라 하드웨어 (선택적)
+  const hwChips=Array.from(document.querySelectorAll('#face-camera-hw-chips .odetail'));
+  hwChips.forEach(c=>c.classList.remove('active'));
+  if(Math.random()>.5){
+    const pickedHw=pick(hwChips);
+    if(pickedHw) pickedHw.classList.add('active');
+  }
+
+  generate();
+
+  // 버튼 피드백
+  const btn=document.getElementById('face-random-btn');
+  if(btn){btn.textContent='✓ 적용됨';setTimeout(()=>{btn.textContent='🎲 랜덤';},1400);}
+}
+// ── 의상 스타일 분석 ─────────────────────────────────────────────
+
+function normalizeImageType(t){
+  if(!t) return 'image/png';
+  if(t==='image/jpg') return 'image/jpeg';
+  if(['image/jpeg','image/png','image/gif','image/webp'].includes(t)) return t;
+  return 'image/png'; // fallback
+}
+// data URL에서 실제 미디어 타입 추출
+function typeFromDataUrl(dataUrl){
+  const m=dataUrl.match(/^data:([^;]+);/);
+  if(m) return normalizeImageType(m[1]);
+  return 'image/png';
+}
+let _outfitCharImg = null;
+
+function outfitCharLoad(input){
+  const file=input.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const dataUrl=e.target.result;
+    _outfitCharImg={b64:dataUrl.split(',')[1], type:typeFromDataUrl(dataUrl)};
+    const prev=document.getElementById('outfit-char-preview');
+    const icon=document.getElementById('outfit-char-placeholder-icon');
+    prev.src=e.target.result; prev.style.display='block'; icon.style.display='none';
+    document.getElementById('outfit-char-zone').style.borderColor='var(--p2)';
+  };
+  reader.readAsDataURL(file);
+}
+
+function outfitCharDrop(e){
+  e.preventDefault();
+  const file=e.dataTransfer.files[0]; if(!file||!file.type.startsWith('image/')) return;
+  const dt=new DataTransfer(); dt.items.add(file);
+  const inp=document.getElementById('outfit-char-file');
+  inp.files=dt.files; outfitCharLoad(inp);
+}
+
+// 붙여넣기 지원
+document.getElementById('outfit-char-zone')?.addEventListener('paste', e=>{
+  const items=e.clipboardData?.items;
+  if(!items) return;
+  for(const item of items){
+    if(item.type.startsWith('image/')){
+      e.preventDefault();
+      const file=item.getAsFile();
+      const reader=new FileReader();
+      reader.onload=ev=>{
+        const dataUrl=ev.target.result;
+        _outfitCharImg={b64:dataUrl.split(',')[1], type:typeFromDataUrl(dataUrl)};
+        const prev=document.getElementById('outfit-char-preview');
+        const icon=document.getElementById('outfit-char-placeholder-icon');
+        prev.src=ev.target.result; prev.style.display='block'; icon.style.display='none';
+        document.getElementById('outfit-char-zone').style.borderColor='var(--p2)';
+      };
+      reader.readAsDataURL(file);
+      return;
+    }
+  }
+});
+
+async function runOutfitStyleAnalysis(){
+  if(!_outfitCharImg){ alert('캐릭터 이미지를 먼저 업로드하세요.'); return; }
+  const btn=document.getElementById('outfit-analyze-btn');
+  const loading=document.getElementById('outfit-analyze-loading');
+  const errEl=document.getElementById('outfit-analyze-error');
+  const resultEl=document.getElementById('outfit-analyze-result');
+  btn.style.display='none'; loading.style.display='block';
+  errEl.style.display='none'; resultEl.style.display='none';
+
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1200,
+        system:`You are an expert fashion stylist and AI image generation specialist.
+Analyze the character's appearance and return ONLY a JSON object (no markdown, no explanation):
+{
+  "character_read": "한글 2문장 — 캐릭터의 전체적인 인상, 분위기, 피부톤 요약",
+  "palettes": [
+    {"name":"팔레트 이름(한글)","value":"ENGLISH PALETTE VALUE FOR PROMPT","reason":"한글 1문장 이유","hex":["#hex1","#hex2","#hex3"]}
+  ],
+  "styles": [
+    {"name":"스타일명(한글)","mood":"영문 스타일 무드 키워드들","items":"추천 아이템 한글 1-2줄","why":"어울리는 이유 한글"}
+  ],
+  "avoid": "피해야 할 스타일 한글 1문장"
+}
+Provide exactly 3 palettes and 3 styles.`,
+        messages:[{role:'user',content:[
+          {type:'image',source:{type:'base64',media_type:_outfitCharImg.type,data:_outfitCharImg.b64}},
+          {type:'text',text:'이 캐릭터에게 가장 잘 어울리는 의상 스타일과 컬러 팔레트를 분석해주세요.'}
+        ]}]
+      })
+    });
+    const data=await res.json();
+    if(data.error) throw new Error(data.error.message);
+    const raw=data.content.filter(c=>c.type==='text').map(c=>c.text).join('').trim();
+    const parsed=JSON.parse(raw.replace(/^```json?|```$/gm,'').trim());
+    renderOutfitAnalysis(parsed);
+  }catch(err){
+    errEl.textContent='오류: '+err.message; errEl.style.display='block';
+  }finally{
+    btn.style.display='block'; loading.style.display='none';
+  }
+}
+
+function renderOutfitAnalysis(d){
+  const el=document.getElementById('outfit-analyze-result');
+  el.style.display='block';
+  el.innerHTML=`
+    <div style="font-family:var(--fm);font-size:12px;color:var(--txm);line-height:1.7;padding:10px 12px;background:var(--sf2);border-radius:8px;margin-bottom:12px;border-left:2px solid var(--p2)">
+      ${d.character_read}
+    </div>
+
+    <div style="font-family:var(--fm);font-size:11px;color:var(--txd);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">추천 컬러 팔레트</div>
+    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px">
+      ${d.palettes.map(p=>`
+        <div onclick="applyOutfitPaletteRecommend('${p.value.replace(/'/g,"\'")}','${p.name}')"
+             style="display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--sf2);border:.5px solid var(--bd);border-radius:8px;cursor:pointer;transition:all .15s"
+             onmouseover="this.style.borderColor='var(--p2)'"
+             onmouseout="this.style.borderColor='var(--bd)'">
+          <div style="display:flex;gap:3px;flex-shrink:0">
+            ${p.hex.map(c=>`<div style="width:18px;height:18px;border-radius:4px;background:${c}"></div>`).join('')}
+          </div>
+          <div style="flex:1">
+            <div style="font-size:12px;color:var(--txm);font-weight:500">${p.name}</div>
+            <div style="font-size:12px;color:var(--txd);margin-top:1px">${p.reason}</div>
+          </div>
+          <div style="font-size:11px;color:var(--p2);flex-shrink:0">적용 →</div>
+        </div>`).join('')}
+    </div>
+
+    <div style="font-family:var(--fm);font-size:11px;color:var(--txd);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">추천 스타일</div>
+    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px">
+      ${d.styles.map(s=>`
+        <div style="padding:10px 12px;background:var(--sf2);border:.5px solid var(--bd);border-radius:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+            <span style="font-size:12px;color:var(--txm);font-weight:500">${s.name}</span>
+            <span style="font-family:var(--fm);font-size:11px;color:var(--p2);background:var(--p2d);padding:1px 7px;border-radius:4px">${s.mood}</span>
+          </div>
+          <div style="font-size:12px;color:var(--txm);margin-bottom:3px">${s.items}</div>
+          <div style="font-size:12px;color:var(--txd)">${s.why}</div>
+        </div>`).join('')}
+    </div>
+
+    <div style="font-family:var(--fm);font-size:12px;color:var(--txd);padding:8px 10px;background:rgba(229,115,115,.05);border:.5px solid rgba(229,115,115,.2);border-radius:7px">
+      ⚠ 피해야 할 스타일: ${d.avoid}
+    </div>`;
+}
+
+function applyOutfitPaletteRecommend(value, name){
+  // 팔레트 칩에서 매칭되는 것 찾아 적용, 없으면 st.outfitPalette에 직접 저장
+  let applied=false;
+  document.querySelectorAll('#outfit-palette .opchip').forEach(chip=>{
+    const match=chip.dataset.value===value||chip.textContent.trim().includes(name.substring(0,4));
+    if(match&&!applied){
+      document.querySelectorAll('#outfit-palette .opchip').forEach(c=>c.classList.remove('active'));
+      chip.classList.add('active');
+      st.outfitPalette=chip.dataset.value;
+      applied=true;
+    }
+  });
+  if(!applied){ st.outfitPalette=value; }
+  generate();
+  // 시각적 피드백
+  event.currentTarget.style.background='rgba(142,196,154,.12)';
+  setTimeout(()=>event.currentTarget.style.background='var(--sf2)',800);
+}
+// ── 상세 체형 칩 ───────────────────────────────────────────────
+['body-silhouette-chips','body-height-chips','body-upper-chips','body-lower-chips'].forEach(gid=>{
+  document.querySelectorAll('#'+gid+' .odetail').forEach(t=>{
+    t.addEventListener('click',()=>{t.classList.toggle('active');generate();});
+  });
+});
 // ── 얼굴 에셋 카메라 하드웨어 칩 ─────────────────────────────
 document.querySelectorAll('#face-camera-hw-chips .odetail').forEach(t=>{
   t.addEventListener('click',()=>{
@@ -3620,6 +4099,7 @@ initOdetail('outer-wearing-chips','outerWearing');
 initOdetail('outer-detail-chips','outerDetails');
 initOtype('bottom-type-chips','bottomType');
 initOdetail('bottom-material-chips','bottomMaterials');
+  initOdetail('bottom-length-chips','bottomDetails');
 initOdetail('bottom-fit-chips','bottomFit');
 initOdetail('bottom-detail-chips','bottomDetails');
 initOtype('shoe-type-chips','shoeType');
@@ -3745,8 +4225,8 @@ const outfitPresets={
   },
 };
 
-function applyOutfitPreset(presetName){
-  const preset=outfitPresets[presetName];
+function applyOutfitPreset(presetName, customData){
+  const preset=customData||outfitPresets[presetName];
   if(!preset) return;
 
   // 모든 outfit 칩 초기화
@@ -3796,6 +4276,8 @@ function applyOutfitPreset(presetName){
   setMulti('bottom-detail-chips', preset.bottomDetails||[], 'bottomDetails');
   setType('shoe-type-chips', preset.shoeType||'', 'shoeType');
   setMulti('outfit-acc-tags', preset.outfitAccChips||[], 'outfitAccChips');
+  setMulti('face-acc-chips', preset.faceAccChips||[], 'faceAccChips');
+  setMulti('emissive-chips', preset.emissiveChips||[], 'emissiveChips');
   setMulti('hardware-chips', preset.outfitHardware||[], 'outfitHardware');
   setMulti('outfit-mood-chips', preset.styleMoodChips||[], 'styleMoodChips');
 
@@ -3880,10 +4362,8 @@ if(stBtn){
   stBtn.addEventListener('mouseover',()=>{stBtn.style.borderColor='var(--bdh)';stBtn.style.color='var(--tx)';});
   stBtn.addEventListener('mouseout',()=>{stBtn.style.borderColor='var(--bd)';stBtn.style.color='var(--txm)';});
 }
-const ST_PROMPT = `USING IMAGE 1 AS THE CHARACTER IDENTITY REFERENCE AND IMAGE 2 AS THE COMPLETE OUTFIT REFERENCE, generate a new image of this character wearing this exact outfit.
-PRESERVE FROM IMAGE 1: facial features, skin tone, hair, and all unique identity markers.
-APPLY FROM IMAGE 2: every detail of the outfit including fabric texture, color, accessories, and hardware.
-FULL BODY SHOT (FS), HEAD TO TOE, WHITE CYCLORAMA BACKGROUND, THREE-POINT SOFTBOX LIGHTING, SOFT DIFFUSED KEY LIGHT, PHOTOREALISTIC.`;
+const ST_PROMPT = `THE CHARACTER FROM IMAGE 1 WEARING THIS OUTFIT FROM IMAGE 2. FULL BODY SHOT,
+WHITE STUDIO BACKGROUND, SOFT CINEMATIC LIGHTING, REALISTIC.`;
 
 function copyScreenTest(){
   const btn=document.getElementById('st-copy-btn');
@@ -3936,9 +4416,11 @@ function generatePhase1(blocks){
     const outfitHint=v('face-render').includes('3D')||v('face-render').includes('STYLIZED')?'':'';
     // faceP 조합
     const poseStr=v('pose-action')?v('pose-action')+'. ':'';
+    const blushStr=Array.from(document.querySelectorAll('#blush-chips .mchip.active')).map(t=>t.dataset.value).filter(Boolean).join(', ');
+
     const faceCamHw=Array.from(document.querySelectorAll('#face-camera-hw-chips .odetail.active')).map(t=>t.dataset.value).join(', ');
     const faceCamStr=faceCamHw?faceCamHw+'. ':'';
-    const faceP=clean(`${st.faceShot} ${faceAngle} ${eth} (AGE ${age}), ${build}, ${attractStr}${arch}. ${skin}, ${eyes}. ${hair}. ${hairTextureStr}${hairAccStr}${makeupFull}${exprStr}${poseStr}${anchorStr}${faceLightStr}${faceCamStr}WHITE STUDIO BACKGROUND, SOFT CINEMATIC LIGHTING, ${faceRender}`.replace(/\s+/g,' '));
+    const faceP=clean(`${st.faceShot} ${faceAngle} ${eth} (AGE ${age}), ${build}, ${attractStr}${arch}. ${skin}, ${eyes}. ${hair}. ${hairTextureStr}${hairAccStr}${makeupFull}${blushStr?blushStr+". ":""}${exprStr}${poseStr}${anchorStr}${faceLightStr}${faceCamStr}WHITE STUDIO BACKGROUND, SOFT CINEMATIC LIGHTING, ${faceRender}`.replace(/\s+/g,' '));
 
     // ── Outfit Asset prompt ────────────────────────────────────────────
     const palette=st.outfitPalette;
@@ -4001,12 +4483,12 @@ function generatePhase1(blocks){
     if(ol) ol.textContent=st.faceLighting||'미설정 — ① 탭에서 조명 선택 시 자동 반영';
     if(ol) ol.style.color=st.faceLighting?'var(--p1)':'var(--txm)';
 
-    // 조합 순서: 팔레트힌트 → 상의 → 아우터 → 하의 → 신발 → 액세서리 → 하드웨어 → 소품 → 무드
+    // 조합 순서: 팔레트힌트 → 상의 → 하의 → 아우터 → 신발 → 액세서리 → 하드웨어 → 소품 → 무드
     const outParts=[
       paletteHint,
       topFull,
-      outerFull,
       botFull,
+      outerFull,
       shoeFull,
       accFull,
       hardwareFull,
@@ -4014,16 +4496,34 @@ function generatePhase1(blocks){
       moodFull,
     ].filter(Boolean);
 
+    // 피팅 모델 & 볼륨 — 얼굴 에셋 기본 정보 연동
+    const mEth=v('ethnicity')||'';
+    const mGender=v('gender')||'';
+    const mAge=v('age')||'';
+    const mAttract=v('face-attract')||'';
+    const mAgeNum=parseInt(mAge)||20;
+    const mAgePrefix=mAgeNum<=25?'YOUNG':mAgeNum<=35?'YOUNG ADULT':mAgeNum<=45?'MATURE':'MIDDLE-AGED';
+    const fBodyS=Array.from(document.querySelectorAll('#body-silhouette-chips .odetail.active')).map(t=>t.dataset.value).join(', ');
+    const fBodyH=Array.from(document.querySelectorAll('#body-height-chips .odetail.active')).map(t=>t.dataset.value).join(', ');
+    const fBodyU=Array.from(document.querySelectorAll('#body-upper-chips .odetail.active')).map(t=>t.dataset.value).join(', ');
+    const fBodyL=Array.from(document.querySelectorAll('#body-lower-chips .odetail.active')).map(t=>t.dataset.value).join(', ');
+    const fBodyDetail=[fBodyS,fBodyH,fBodyU,fBodyL].filter(Boolean).join(', ');
+    // 기본 모델 정보 (인종·성별·나이·체형·매력도)
+    const baseModel=[mAgePrefix,mEth,mGender,mAge?`(AGE ${mAge})`:'',mAttract].filter(Boolean).join(' ');
+    const modelPrefix=[baseModel,fBodyDetail].filter(Boolean).join(', ');
+    // 피팅 모델 바 업데이트
+    const outModelBar=document.getElementById('outfit-model-info');
+    if(outModelBar) outModelBar.textContent=baseModel||'① 얼굴 에셋에서 인종·나이·체형을 설정하면 자동 반영됩니다';
     const outfitAngle=v('outfit-angle');
     const outStyleRender=[v('face-render')||'PHOTOREALISTIC, FASHION EDITORIAL GRADE', v('face-renderer')||''].filter(Boolean).join(', ');
     const outP=clean(outParts.length
-      ? `${st.outfitShot} ${outfitAngle} `+outParts.join('. ')+`. WHITE STUDIO BACKGROUND, SOFT CINEMATIC LIGHTING, ${outStyleRender}`
-      : `${st.outfitShot} ${outfitAngle} WHITE STUDIO BACKGROUND, SOFT CINEMATIC LIGHTING, ${outStyleRender}`);
+      ? `${st.outfitShot} ${outfitAngle}${modelPrefix?", "+modelPrefix:""}`+outParts.join('. ')+`. WHITE STUDIO BACKGROUND, SOFT CINEMATIC LIGHTING, ${outStyleRender}`
+      : `${st.outfitShot} ${outfitAngle}${modelPrefix?", "+modelPrefix:""}WHITE STUDIO BACKGROUND, SOFT CINEMATIC LIGHTING, ${outStyleRender}`);
 
     const stP=ST_PROMPT;
 
-    blocks.push({id:'face',  cls:'pb-face',  label:'얼굴 에셋',text:faceP.replace(', WHITE STUDIO BACKGROUND, SOFT CINEMATIC LIGHTING, '+faceRender,'').trim(),suffix:'WHITE STUDIO BACKGROUND, SOFT CINEMATIC LIGHTING, '+faceRender});
-    blocks.push({id:'outfit',cls:'pb-outfit',label:'의상 에셋',text:outP.replace('. WHITE STUDIO BACKGROUND, SOFT CINEMATIC LIGHTING, '+outStyleRender,'').trim(),suffix:'WHITE STUDIO BACKGROUND, SOFT CINEMATIC LIGHTING, '+outStyleRender});
+    blocks.push({id:'face',  cls:'pb-face',  label:'얼굴 에셋',text:faceP.replace(', WHITE STUDIO BACKGROUND, SOFT CINEMATIC LIGHTING, '+faceRender,'').trim(),suffix:'WHITE STUDIO BACKGROUND, SOFT CINEMATIC LIGHTING, '+faceRender+', 8k, best quality'});
+    blocks.push({id:'outfit',cls:'pb-outfit',label:'의상 에셋',text:outP.replace('. WHITE STUDIO BACKGROUND, SOFT CINEMATIC LIGHTING, '+outStyleRender,'').trim(),suffix:'WHITE STUDIO BACKGROUND, SOFT CINEMATIC LIGHTING, '+outStyleRender+', 8k, best quality'});
     blocks.push({id:'st',    cls:'pb-fusion',label:'얼굴 + 의상',text:stP});
     // character sheet prompt
     const sheetViews=st.sheetViews.length?st.sheetViews.join(', '):'FRONT FULL BODY VIEW, BACK FULL BODY VIEW, FACE CLOSE-UP FRONT';
@@ -4081,7 +4581,7 @@ function generatePhase2(blocks){
       ratioStr,
     ].filter(Boolean);
     const wP=clean(parts.join('. '));
-    const wSuffix=bgSuffix.replace(/^\. /,'');
+    const wSuffix=(bgSuffix.replace(/^\. /,'')+', 8k, best quality').replace(/^, /,'');
     blocks.push({id:'world',cls:'pb-world',label:'씬 세팅',text:wP,suffix:wSuffix||''});
     // 크리쳐 프롬프트 (선택)
     const cDesc2=document.getElementById('creature-desc')?.value.trim()||'';
@@ -4113,7 +4613,7 @@ function generatePhase2(blocks){
       const behaviors=[...(st.creatureBehavior||[]),...(st.creatureFacing||[])].filter(Boolean).join(', ');
 
       // ⑤ 배경/조명/렌더 마감
-      const cBg='WHITE BACKGROUND, SOFT SHADOW BENEATH, PRODUCT-RENDER STYLE LIGHTING. HYPER-DETAILED, CINEMATIC REALISM';
+      const cBg='WHITE BACKGROUND, SOFT SHADOW BENEATH, PRODUCT-RENDER STYLE LIGHTING. HYPER-DETAILED, CINEMATIC REALISM, 8k, best quality';
 
       const cP=clean([
         cShot,
@@ -4354,9 +4854,9 @@ function resetAll(){
 }
 
 // ── Event listeners ────────────────────────────────────────────────────
-['ethnicity','gender','age','build','eyes','skin','hair-color','hair-style','expression',
+['ethnicity','gender','age','build','eyes','skin','hair-color','hair-style','expression','pose-action',
  'face-render','face-renderer','face-attract','face-angle','outfit-angle','sheet-bg','sheet-render',
- 'lighting','light-dir','setting','density','lens','grade',
+ 'lighting','light-dir','setting','density','lens','grade','scene-camera-hw',
  'bpm','beat-hit','music-mood'
 ].forEach(id=>{const e=document.getElementById(id);if(e)e.addEventListener('change',generate)});
 
@@ -4923,5 +5423,5 @@ const _bgChk=document.getElementById('scene-bg-only');
 if(_bgChk){_bgChk.checked=true;updateBgToggleUI(true);}
 generate();
 </script>
+
 </body>
-</html>
