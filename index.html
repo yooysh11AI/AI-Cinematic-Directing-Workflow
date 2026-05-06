@@ -1606,8 +1606,20 @@ select option{color:var(--tx);background:var(--sf2)}
   <div class="section">
     <div class="sec-label">▸ 🏙 배경 &amp; 장소 <button class="sec-rnd-btn" onclick="rndSec('scene-set',this)">🎲</button></div>
 
-    <div class="opart-sublabel" style="margin-top:2px">자연 · 황야</div>
+    <div class="opart-sublabel" style="margin-top:2px">사이버펑크 · SF</div>
     <div class="opart-row" id="setting-chips">
+      <span class="odetail" data-value="rain-soaked cyberpunk megacity street, neon signs reflected in wet pavement, dense holographic billboards, vertical stacked architecture, electric blue and magenta light, heavy atmosphere fog">🌆 사이버펑크 도심</span>
+      <span class="odetail" data-value="futuristic runway stage, polished reflective floor, dramatic beam lighting from above, theatrical performance environment, neon light strips on floor, sleek industrial architecture">🎭 미래형 런웨이</span>
+      <span class="odetail" data-value="elevated cyberpunk highway overpass, distant city towers glowing below, motion-blurred vehicle trails, holographic traffic signs, industrial scaffolding">🛣 사이버 고속도로</span>
+      <span class="odetail" data-value="underground neon-lit tunnel corridor, curved walls covered in graffiti and LED strips, vanishing point perspective, haze and mist, cyberpunk underground atmosphere">🚇 네온 터널</span>
+      <span class="odetail" data-value="futuristic sci-fi space station interior, zero-gravity aesthetic, exposed metal grating, panoramic window to stars, sterile white and chrome surfaces, holographic displays">🛸 우주 스테이션</span>
+      <span class="odetail" data-value="dystopian rooftop above a smog-covered megacity, satellite dishes and cooling units, neon city glow through thick smog layer, rain-soaked concrete">🏚 디스토피아 루프탑</span>
+      <span class="odetail" data-value="sleek high-tech laboratory, clean white surfaces, holographic data streams, futuristic medical or research facility, blue-tinted clinical lighting">🔬 하이테크 랩</span>
+      <span class="odetail" data-value="virtual reality digital void environment, glowing grid floor, infinite black space, floating geometric shapes and data cubes, matrix-like aesthetic">💠 버추얼 리얼리티</span>
+
+      <div style="width:100%;height:.5px;background:rgba(255,255,255,.07);margin:5px 0"></div>
+      <div class="opart-sublabel" style="margin:2px 0 5px;width:100%;text-transform:uppercase;font-size:11px">자연 · 황야</div>
+
       <span class="odetail" data-value="vast endless desert, sweeping sand dunes, scorched arid terrain, heat shimmer">🏜 광활한 사막</span>
       <span class="odetail" data-value="red rock canyon desert, eroded sandstone formations, mesa plateaus, rust-toned terrain">🟠 레드 록 캐니언</span>
       <span class="odetail" data-value="towering sheer cliff face, vertical rock wall, exposed geological strata, dramatic drop">🧱 수직 절벽</span>
@@ -1650,6 +1662,8 @@ select option{color:var(--tx);background:var(--sf2)}
       <span class="odetail" data-value="narrow slot canyon, tight winding rock corridor, striped sandstone walls, shaft of light from above">슬롯 캐니언 — 빛 기둥</span>
       <span class="odetail" data-value="high-altitude mountain ridge, exposed summit, sheer drop on both sides, vast panoramic sky">산릉 — 고지대 능선</span>
       <span class="odetail" data-value="wide dry riverbed between canyon walls, eroded basin floor, towering cliff sides">건천 협곡 바닥</span>
+      <span class="odetail" data-value="four silhouettes converging on a wide reflective runway center, symmetrical neon corridor, dramatic vanishing point">런웨이 중앙 — 대칭 집결</span>
+      <span class="odetail" data-value="single figure isolated in vast cyberpunk environment, dramatic negative space, city scale emphasizing solitude">단독 인물 — 광활한 공간 대비</span>
     </div>
   </div>
 
@@ -1665,6 +1679,8 @@ select option{color:var(--tx);background:var(--sf2)}
       <span class="odetail" data-value="Middle Eastern Islamic architecture, geometric lattice, dome structures, ornate archways">중동 이슬람</span>
       <span class="odetail" data-value="organic biomechanical architecture, curved growths, non-Euclidean forms">바이오메카닉</span>
       <span class="odetail" data-value="globally ambiguous mixed architecture, culturally unidentifiable hybrid fusion">문화 불명·하이브리드</span>
+      <span class="odetail" data-value="cyberpunk megastructure, densely stacked vertical cityscape, exposed pipes and cable conduits, makeshift extensions, layered slum towers over corporate skyscrapers">사이버펑크 메가스트럭처</span>
+      <span class="odetail" data-value="neon-signage saturated street level, dense LED and holographic advertising boards in multiple languages, glowing storefronts, urban information overload">네온 사이니지 밀집</span>
     </div>
   </div>
 
@@ -1736,6 +1752,12 @@ select option{color:var(--tx);background:var(--sf2)}
             <option value="practical neon ambient, mixed color temperature spill, deep underexposed night">네온 앰비언트</option>
             <option value="tungsten practical candlelight, warm flickering source, intimate low-key chiaroscuro">촛불 / 불빛</option>
             <option value="volumetric god rays, light shafts through atmosphere, dusty beam scatter">볼류메트릭 갓레이</option>
+          </optgroup>
+          <optgroup label="— 사이버펑크">
+            <option value="cyberpunk neon-drenched lighting, electric magenta and cyan split-tone, deep shadow fill, rain-reflection bounce light">사이버펑크 네온 드렌치</option>
+            <option value="holographic blue ambient, cold sterile fill, neon sign bounce, underexposed background">홀로그래픽 블루 앰비언트</option>
+            <option value="theatrical spot beam from above, hard rim backlight, floor neon strip reflection, dramatic contrast">빔 스포트 + 플로어 네온</option>
+            <option value="dynamic multi-color LED wash, saturated color mixing, concert-grade stage lighting, smoke diffusion">LED 컬러 워시 (공연형)</option>
           </optgroup>
         </select>
       </div>
@@ -2680,6 +2702,66 @@ select option{color:var(--tx);background:var(--sf2)}
       <div style="padding:16px 18px">
         <div id="logo-prompt-text"
           style="font-family:var(--fm);font-size:13px;line-height:1.9;color:var(--ac);letter-spacing:.01em;word-break:break-word">Based on the first image, create a 3D graphic text for '<span id="logo-title-display" style="color:var(--p1)">Tittle</span>' that complements this style. The background should be black, Front view, and output only the text</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 캐릭터 스타일 반영 로고 -->
+  <div class="section">
+    <div class="sec-label">▸ 🎨 캐릭터 스타일 반영 로고</div>
+    <div style="background:var(--sf2);border:.5px solid rgba(142,196,154,.2);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-family:var(--fm);font-size:12px;color:var(--txd);line-height:1.7">
+      캐릭터의 무드·소재·색상을 그대로 로고에 녹여내는 심화 프롬프트입니다.<br>
+      IMAGE 1에 캐릭터 에셋을 업로드하세요.
+    </div>
+
+    <!-- 텍스트 입력 -->
+    <div class="field" style="margin-bottom:12px">
+      <label>로고 텍스트</label>
+      <input type="text" id="logo-style-title-input"
+        placeholder="예: NOVA, CIPHER, 캐릭터 이름..."
+        oninput="generateStyledLogoPrompt()"
+        style="font-size:13px">
+    </div>
+
+    <!-- 프롬프트 출력 -->
+    <div style="background:var(--sf2);border:.5px solid rgba(142,196,154,.3);border-radius:10px;overflow:hidden">
+      <div style="padding:10px 14px 8px;border-bottom:.5px solid var(--bd);display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-family:var(--fm);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--txd)">Soul Cinema 프롬프트</span>
+          <span style="font-size:12px;padding:1px 6px;border-radius:3px;background:var(--p2d);color:var(--p2);border:.5px solid rgba(142,196,154,.3);font-family:var(--fm)">스타일 반영</span>
+        </div>
+        <button id="logo-style-copy-btn"
+          style="font-family:var(--fm);font-size:12px;padding:3px 10px;border-radius:4px;border:.5px solid var(--bd);background:transparent;color:var(--txm);cursor:pointer;transition:all .15s ease"
+          onclick="copyStyledLogoPrompt()">복사</button>
+      </div>
+      <div style="padding:16px 18px">
+        <div id="logo-style-prompt-text"
+          style="font-family:var(--fm);font-size:13px;line-height:1.9;color:var(--p2);letter-spacing:.01em;word-break:break-word">Based on the character's visual style, color palette, and aesthetic in the first image, design a 3D typographic logo for the text '<span id="logo-style-title-display" style="color:var(--p1)">Tittle</span>'. The logo should feel like it was made for this character — matching their mood, material texture, and color language. Front view, centered composition, pure black background, output only the text with no additional elements</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 얼굴 그리드 생성 -->
+  <div class="section">
+    <div class="sec-label">▸ 🔲 얼굴 그리드 생성</div>
+    <div style="background:var(--sf2);border:.5px solid rgba(196,126,184,.2);border-radius:10px;padding:10px 14px;margin-bottom:12px;font-family:var(--fm);font-size:12px;color:var(--txd);line-height:1.7">
+      얼굴 에셋 이미지에 그리드를 추가하는 편집 프롬프트입니다.<br>
+      Soul Cinema에 얼굴 에셋 이미지를 업로드하고 아래 프롬프트를 붙여넣으세요.
+    </div>
+
+    <div style="background:var(--sf2);border:.5px solid rgba(196,126,184,.3);border-radius:10px;overflow:hidden">
+      <div style="padding:10px 14px 8px;border-bottom:.5px solid var(--bd);display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-family:var(--fm);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--txd)">Soul Cinema 프롬프트</span>
+          <span style="font-size:12px;padding:1px 6px;border-radius:3px;background:var(--p3d);color:var(--p3);border:.5px solid rgba(196,126,184,.3);font-family:var(--fm)">얼굴 그리드</span>
+        </div>
+        <button id="face-grid-copy-btn"
+          style="font-family:var(--fm);font-size:12px;padding:3px 10px;border-radius:4px;border:.5px solid var(--bd);background:transparent;color:var(--txm);cursor:pointer;transition:all .15s ease"
+          onclick="copyFaceGridPrompt()">복사</button>
+      </div>
+      <div style="padding:16px 18px">
+        <div id="face-grid-prompt-text"
+          style="font-family:var(--fm);font-size:13px;line-height:1.9;color:var(--p3);letter-spacing:.01em;word-break:break-word">Add a subtle very thin semi-transparent 12x12 white grid overlay.</div>
       </div>
     </div>
   </div>
@@ -6151,6 +6233,35 @@ function copyLogoPrompt(){
   const title=(document.getElementById('logo-title-input')?.value||'').trim()||'Tittle';
   const text=`Based on the first image, create a 3D graphic text for '${title}' that complements this style. The background should be black, Front view, and output only the text`;
   const btn=document.getElementById('logo-copy-btn');
+  const flash=()=>{if(btn){btn.textContent='✓ 복사됨';setTimeout(()=>{btn.textContent='복사';},1400);}};
+  navigator.clipboard?.writeText(text).then(flash).catch(()=>{
+    const ta=document.createElement('textarea'); ta.value=text;
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta); flash();
+  });
+}
+
+function generateStyledLogoPrompt(){
+  const title=(document.getElementById('logo-style-title-input')?.value||'').trim()||'Tittle';
+  const display=document.getElementById('logo-style-title-display');
+  if(display) display.textContent=title;
+}
+
+function copyStyledLogoPrompt(){
+  const title=(document.getElementById('logo-style-title-input')?.value||'').trim()||'Tittle';
+  const text=`Based on the character's visual style, color palette, and aesthetic in the first image, design a 3D typographic logo for the text '${title}'. The logo should feel like it was made for this character — matching their mood, material texture, and color language. Front view, centered composition, pure black background, output only the text with no additional elements`;
+  const btn=document.getElementById('logo-style-copy-btn');
+  const flash=()=>{if(btn){btn.textContent='✓ 복사됨';setTimeout(()=>{btn.textContent='복사';},1400);}};
+  navigator.clipboard?.writeText(text).then(flash).catch(()=>{
+    const ta=document.createElement('textarea'); ta.value=text;
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta); flash();
+  });
+}
+
+function copyFaceGridPrompt(){
+  const text=`Add a subtle very thin semi-transparent 12x12 white grid overlay.`;
+  const btn=document.getElementById('face-grid-copy-btn');
   const flash=()=>{if(btn){btn.textContent='✓ 복사됨';setTimeout(()=>{btn.textContent='복사';},1400);}};
   navigator.clipboard?.writeText(text).then(flash).catch(()=>{
     const ta=document.createElement('textarea'); ta.value=text;
